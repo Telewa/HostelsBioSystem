@@ -1,0 +1,38 @@
+1. Login
+	- Admin number
+	- Password
+	- Forgot password
+
+2. Homepage
+	- Links to other pages
+		 
+		1. Admin page
+			- Add New Admin
+			- Edit other admin details
+		2. Records form
+			- Register a new student - Tabs
+				- Id no
+				- f|m|L name
+				- Gender
+				- Hostel - (new)
+				- Room number
+				- Bio data - finger print
+			- Edit student records-
+				- Edit the above values	
+				- Search for a student to edit
+				- Delete records
+				- Save 
+		3. Reports form
+			- What student is in which room
+			  Student Name |	Student Id Nu 	| Room   | Trimester | Year | Hostel 
+			1. 
+			2. 
+			- Printable
+			
+			- Date and time based report.
+				Trimester	| Hostel	| Room number | Room occupant (name od student)
+			1.
+			2. 	
+
+
+
