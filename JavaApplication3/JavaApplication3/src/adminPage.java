@@ -1,22 +1,57 @@
+
+import java.util.ArrayList;
+import java.util.Locale;
+import org.jdesktop.xswingx.PromptSupport;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author wndessy
  */
-public class adminPage extends javax.swing.JFrame {
+public final class adminPage extends javax.swing.JFrame {
 
     /**
      * Creates new form adminPage
      */
+    LoginForm lg = new LoginForm();
+    homePage home = new homePage();
+
     public adminPage() {
+        
         initComponents();
+        PromptSupport.setPrompt("Admin Id", newAdminId);
+        PromptSupport.setPrompt("Email Address", newAdminEmail);
+        PromptSupport.setPrompt("First Name", newAdminFirstName);
+        PromptSupport.setPrompt("First Last", newAdminLastName);
+        PromptSupport.setPrompt("Username", newAdminuserName);
+        PromptSupport.setPrompt("Password", newAdminPassword);
+        PromptSupport.setPrompt("Search", searchAdmin);
+        
+        PromptSupport.setPrompt("Admin Id",editAdminId);
+        PromptSupport.setPrompt("Email Address", editAdminEmail);
+        PromptSupport.setPrompt("First Name", editAdminFirstName);
+        PromptSupport.setPrompt("First Last", editAdminLastName);
+        PromptSupport.setPrompt("Username", editAdminuserName);
+        PromptSupport.setPrompt("Password", editAdminPassword);
+        
+        setUpAutoComplete();
+
     }
-DbModules db = new DbModules();
+        public void setUpAutoComplete() {
+        ArrayList<String> items = new ArrayList<>();
+        Locale[] locales = Locale.getAvailableLocales();
+        for (Locale locale : locales) {
+            String item = locale.getDisplayName();
+            items.add(item);
+        }
+        AutoComplete.setupAutoComplete(searchAdmin, items);
+        searchAdmin.setColumns(20);
+    }
+    DbModules db = new DbModules();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,7 +62,7 @@ DbModules db = new DbModules();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        adminGender = new javax.swing.ButtonGroup();
+        editAdminGender = new javax.swing.ButtonGroup();
         newAdminGender = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         adminFmane = new javax.swing.JTextField();
@@ -44,18 +79,34 @@ DbModules db = new DbModules();
         adminLogout = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        adminId = new javax.swing.JTextField();
-        firstName = new javax.swing.JTextField();
-        lastName = new javax.swing.JTextField();
+        newAdminId = new javax.swing.JTextField();
+        newAdminFirstName = new javax.swing.JTextField();
+        newAdminLastName = new javax.swing.JTextField();
         newAdminMale = new javax.swing.JRadioButton();
         newAdminFemale = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         clear = new javax.swing.JButton();
         save = new javax.swing.JButton();
         newAdminuserName = new javax.swing.JTextField();
-        newAdminpasword = new javax.swing.JPasswordField();
+        newAdminPassword = new javax.swing.JPasswordField();
         newAdminEmail = new javax.swing.JTextField();
         newAdminLogout = new javax.swing.JButton();
+        back1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        editAdminuserName = new javax.swing.JTextField();
+        editAdminFirstName = new javax.swing.JTextField();
+        editAdminId = new javax.swing.JTextField();
+        editAdminEmail = new javax.swing.JTextField();
+        back2 = new javax.swing.JButton();
+        editAdminLastName = new javax.swing.JTextField();
+        editAdminPassword = new javax.swing.JPasswordField();
+        newAdminLogout1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        newAdminMale1 = new javax.swing.JRadioButton();
+        newAdminFemale1 = new javax.swing.JRadioButton();
+        clear1 = new javax.swing.JButton();
+        save1 = new javax.swing.JButton();
+        searchAdmin = new javax.swing.JTextField();
 
         adminFmane.setText("First name");
 
@@ -68,10 +119,10 @@ DbModules db = new DbModules();
             }
         });
 
-        adminGender.add(adminMale);
+        editAdminGender.add(adminMale);
         adminMale.setText("Male");
 
-        adminGender.add(adminFemale);
+        editAdminGender.add(adminFemale);
         adminFemale.setText("Female");
 
         admionClear.setText("Clear");
@@ -178,19 +229,20 @@ DbModules db = new DbModules();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        adminId.setText("Username");
-        adminId.addActionListener(new java.awt.event.ActionListener() {
+        newAdminId.setColumns(15);
+        newAdminId.setMinimumSize(new java.awt.Dimension(2147483647, 2147483647));
+        newAdminId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminIdActionPerformed(evt);
+                newAdminIdActionPerformed(evt);
             }
         });
 
-        firstName.setText("First name");
+        newAdminFirstName.setColumns(10);
 
-        lastName.setText("Last Name");
-        lastName.addActionListener(new java.awt.event.ActionListener() {
+        newAdminLastName.setColumns(10);
+        newAdminLastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastNameActionPerformed(evt);
+                newAdminLastNameActionPerformed(evt);
             }
         });
 
@@ -216,21 +268,28 @@ DbModules db = new DbModules();
             }
         });
 
-        newAdminuserName.setText("Username");
+        newAdminuserName.setColumns(10);
         newAdminuserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newAdminuserNameActionPerformed(evt);
             }
         });
 
-        newAdminpasword.setText("jPasswordField1");
+        newAdminPassword.setColumns(10);
 
-        newAdminEmail.setText("Email address");
+        newAdminEmail.setColumns(10);
 
         newAdminLogout.setText("Logout");
         newAdminLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newAdminLogoutActionPerformed(evt);
+            }
+        });
+
+        back1.setText("Back");
+        back1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back1ActionPerformed(evt);
             }
         });
 
@@ -242,76 +301,221 @@ DbModules db = new DbModules();
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(newAdminuserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newAdminpasword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(adminId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(newAdminMale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(newAdminFemale))
+                            .addComponent(clear))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(newAdminId, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(newAdminuserName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(newAdminFirstName, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(33, 33, 33))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(newAdminLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(newAdminPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(clear)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(newAdminMale)
-                                    .addComponent(save))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(newAdminFemale))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(newAdminLogout))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(newAdminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                                .addGap(7, 7, 7)
+                                .addComponent(newAdminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newAdminLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(back1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adminId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newAdminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(newAdminId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(newAdminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(back1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(newAdminMale)
-                            .addComponent(newAdminFemale))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(save)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(newAdminLogout))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(newAdminuserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newAdminpasword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(29, 29, 29)
-                        .addComponent(clear)))
-                .addGap(26, 26, 26))
+                    .addComponent(newAdminFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newAdminLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newAdminuserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newAdminLogout)
+                    .addComponent(newAdminPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(newAdminMale)
+                    .addComponent(newAdminFemale))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(clear)
+                    .addComponent(save))
+                .addGap(33, 33, 33))
         );
 
-        jTabbedPane1.addTab("Add new admin", jPanel1);
+        jTabbedPane1.addTab("Add new Administrator", jPanel1);
+
+        editAdminuserName.setColumns(10);
+        editAdminuserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAdminuserNameActionPerformed(evt);
+            }
+        });
+
+        editAdminFirstName.setColumns(10);
+
+        editAdminId.setColumns(15);
+        editAdminId.setMinimumSize(new java.awt.Dimension(2147483647, 2147483647));
+        editAdminId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAdminIdActionPerformed(evt);
+            }
+        });
+
+        editAdminEmail.setColumns(10);
+
+        back2.setText("Back");
+        back2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back2ActionPerformed(evt);
+            }
+        });
+
+        editAdminLastName.setColumns(10);
+        editAdminLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editAdminLastNameActionPerformed(evt);
+            }
+        });
+
+        editAdminPassword.setColumns(10);
+
+        newAdminLogout1.setText("Logout");
+        newAdminLogout1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newAdminLogout1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Gender");
+
+        editAdminGender.add(newAdminMale1);
+        newAdminMale1.setText("Male");
+
+        editAdminGender.add(newAdminFemale1);
+        newAdminFemale1.setText("Female");
+
+        clear1.setText("Clear");
+        clear1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clear1ActionPerformed(evt);
+            }
+        });
+
+        save1.setText("Save");
+        save1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                save1ActionPerformed(evt);
+            }
+        });
+
+        searchAdmin.setColumns(20);
+        searchAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchAdminActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(searchAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(newAdminMale1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(newAdminFemale1))
+                                    .addComponent(clear1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(editAdminId, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                    .addComponent(editAdminuserName, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(editAdminFirstName, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(editAdminLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(editAdminPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addComponent(editAdminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(save1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(newAdminLogout1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(back2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 28, Short.MAX_VALUE))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(searchAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(editAdminId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editAdminEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(back2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editAdminFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editAdminLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editAdminuserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newAdminLogout1)
+                    .addComponent(editAdminPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(newAdminMale1)
+                    .addComponent(newAdminFemale1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(clear1)
+                    .addComponent(save1))
+                .addGap(33, 33, 33))
+        );
+
+        jTabbedPane1.addTab("Edit Administrator", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -326,20 +530,21 @@ DbModules db = new DbModules();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameActionPerformed
+    private void newAdminLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAdminLastNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_lastNameActionPerformed
+    }//GEN-LAST:event_newAdminLastNameActionPerformed
 
-    private void adminIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminIdActionPerformed
+    private void newAdminIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAdminIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_adminIdActionPerformed
+    }//GEN-LAST:event_newAdminIdActionPerformed
 
     private void adminLnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLnameActionPerformed
         // TODO add your handling code here:
@@ -351,20 +556,15 @@ DbModules db = new DbModules();
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        vars.setAdminFame(firstName.getText());
-        vars.setAdminLname(lastName.getText());
+        vars.setAdminFame(newAdminFirstName.getText());
+        vars.setAdminLname(newAdminLastName.getText());
         vars.setAdminGender(vars.getSelectedButtonText(newAdminGender));
         vars.setAdminEmail(newAdminEmail.getText());
-        vars.setAdMinPassword(newAdminpasword.getText());
+        vars.setAdMinPassword(newAdminPassword.getText());
         vars.setAdminUsername(newAdminuserName.getText());
+        vars.setAdminId(newAdminId.getText());
         db.addMewAdmin(vars);
-
-
     }//GEN-LAST:event_saveActionPerformed
-
-    private void newAdminuserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAdminuserNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newAdminuserNameActionPerformed
 
     private void AdminEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminEmailActionPerformed
         // TODO add your handling code here:
@@ -377,9 +577,50 @@ DbModules db = new DbModules();
     private void newAdminLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAdminLogoutActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-         LoginForm lg= new LoginForm();
         lg.setVisible(true);
     }//GEN-LAST:event_newAdminLogoutActionPerformed
+
+    private void back1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        home.setVisible(true);
+    }//GEN-LAST:event_back1ActionPerformed
+
+    private void newAdminuserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAdminuserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newAdminuserNameActionPerformed
+
+    private void editAdminuserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAdminuserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editAdminuserNameActionPerformed
+
+    private void editAdminIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAdminIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editAdminIdActionPerformed
+
+    private void back2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_back2ActionPerformed
+
+    private void editAdminLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editAdminLastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editAdminLastNameActionPerformed
+
+    private void newAdminLogout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAdminLogout1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newAdminLogout1ActionPerformed
+
+    private void clear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clear1ActionPerformed
+
+    private void save1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_save1ActionPerformed
+
+    private void searchAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -420,8 +661,6 @@ DbModules db = new DbModules();
     private javax.swing.JTextField AdminEmail;
     private javax.swing.JRadioButton adminFemale;
     private javax.swing.JTextField adminFmane;
-    private javax.swing.ButtonGroup adminGender;
-    private javax.swing.JTextField adminId;
     private javax.swing.JTextField adminLname;
     private javax.swing.JButton adminLogout;
     private javax.swing.JRadioButton adminMale;
@@ -429,22 +668,40 @@ DbModules db = new DbModules();
     private javax.swing.JButton adminSave;
     private javax.swing.JTextField adminUsername;
     private javax.swing.JButton admionClear;
+    private javax.swing.JButton back1;
+    private javax.swing.JButton back2;
     private javax.swing.JButton clear;
-    private javax.swing.JTextField firstName;
+    private javax.swing.JButton clear1;
+    private javax.swing.JTextField editAdminEmail;
+    private javax.swing.JTextField editAdminFirstName;
+    private javax.swing.ButtonGroup editAdminGender;
+    private javax.swing.JTextField editAdminId;
+    private javax.swing.JTextField editAdminLastName;
+    private javax.swing.JPasswordField editAdminPassword;
+    private javax.swing.JTextField editAdminuserName;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField lastName;
     private javax.swing.JTextField newAdminEmail;
     private javax.swing.JRadioButton newAdminFemale;
+    private javax.swing.JRadioButton newAdminFemale1;
+    private javax.swing.JTextField newAdminFirstName;
     private javax.swing.ButtonGroup newAdminGender;
+    private javax.swing.JTextField newAdminId;
+    private javax.swing.JTextField newAdminLastName;
     private javax.swing.JButton newAdminLogout;
+    private javax.swing.JButton newAdminLogout1;
     private javax.swing.JRadioButton newAdminMale;
-    private javax.swing.JPasswordField newAdminpasword;
+    private javax.swing.JRadioButton newAdminMale1;
+    private javax.swing.JPasswordField newAdminPassword;
     private javax.swing.JTextField newAdminuserName;
     private javax.swing.JButton save;
+    private javax.swing.JButton save1;
+    private javax.swing.JTextField searchAdmin;
     // End of variables declaration//GEN-END:variables
 }

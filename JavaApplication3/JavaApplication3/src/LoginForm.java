@@ -1,3 +1,6 @@
+
+import org.jdesktop.xswingx.PromptSupport;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,11 +18,14 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        PromptSupport.setPrompt("Username", loginUsername);
+        PromptSupport.setPrompt("Password", loginpassword);   
     }
 
-    homePage home =new homePage();
+    homePage home = new homePage();
     DbModules db = new DbModules();
-    VarCommon vars =new VarCommon();
+    VarCommon vars = new VarCommon();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,8 +40,11 @@ public class LoginForm extends javax.swing.JFrame {
         login = new javax.swing.JButton();
         loginpassword = new javax.swing.JPasswordField();
         loginUsername = new javax.swing.JTextField();
+        quit = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setText("Username");
 
@@ -48,36 +57,55 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
+        loginpassword.setColumns(20);
+        loginpassword.setToolTipText("password");
+
+        loginUsername.setColumns(20);
+        loginUsername.setToolTipText("Username");
         loginUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginUsernameActionPerformed(evt);
             }
         });
 
+        quit.setText("Quit");
+        quit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("HOSTEL ROOMS ACCESS CONTROL SYSTEM");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(loginUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                            .addComponent(loginpassword)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(login)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(quit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(login))
+                            .addComponent(loginUsername)
+                            .addComponent(loginpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap(61, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(loginUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -85,31 +113,48 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(loginpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(login)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(quit)
+                    .addComponent(login))
+                .addGap(60, 60, 60))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:
-        vars.setAdminUsername(loginUsername.getText());
-        vars.setAdMinPassword(loginpassword.getText());
-        db.adminLogin(vars);
-                 if (vars.isValid) {
-        home.setVisible(true);
-                 }
-                 else{
-            /// to be conducted by the errorpage
-                System.out.println("Wrong username or password ,please try again");
+
+        String username = loginUsername.getText();
+        String password = loginpassword.getText();
+        if ((username.equalsIgnoreCase("")) || (password.equalsIgnoreCase(""))) {
+            vars.infoBox("Please enter username and password to log in ", "failure");
+        } else {
+            vars.setAdminUsername(username);
+            vars.setAdMinPassword(password);
+             /// to be conducted by the errorpage
+                
+            db.adminLogin(vars);
+            if (vars.getIsValid()) {
+                vars.infoBox("Welcome to our system", "success");
+                this.setVisible(false);
+                home.setVisible(true);
+            } else {
+                vars.infoBox("Wrong username or password ,please try again", "failure");
+            }
         }
     }//GEN-LAST:event_loginActionPerformed
 
     private void loginUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loginUsernameActionPerformed
+
+    private void quitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_quitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,8 +194,10 @@ public class LoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton login;
     private javax.swing.JTextField loginUsername;
     private javax.swing.JPasswordField loginpassword;
+    private javax.swing.JButton quit;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,7 +1,22 @@
 
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Locale;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.WindowConstants;
+import org.jdesktop.xswingx.PromptSupport;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,17 +27,44 @@ import javax.swing.ButtonGroup;
  *
  * @author wndessy
  */
-public class recordsForm extends javax.swing.JFrame {
+public final class recordsForm extends javax.swing.JFrame {
 
     /**
      * Creates new form recordsForm
      */
     public recordsForm() {
         initComponents();
+
+        PromptSupport.setPrompt("First Name", newStudentFirstName);
+        PromptSupport.setPrompt("Middle Name", newStudentMiddleName);
+        PromptSupport.setPrompt("Last Name", newStudentLastName);
+        PromptSupport.setPrompt("Room number", newStudentRoomNumber);
+        PromptSupport.setPrompt("ID Number", newStudentIdNumber);
+        PromptSupport.setPrompt("Search", searchStudent);
+        
+        PromptSupport.setPrompt("First Name", EditNewStudentFirstName);
+        PromptSupport.setPrompt("Middle Name", EditNewStudentMiddleName);
+        PromptSupport.setPrompt("Last Name", EditNewStudentLastName);
+        PromptSupport.setPrompt("Room number", EditNewStudentRoomNumber);
+        PromptSupport.setPrompt("ID Number", EditNewStudentIdNumber);
+
+        setUpAutoComplete();
+
     }
-    VarCommon vars = new VarCommon();
-    DbModules db = new DbModules();
-    adminPage admin = new adminPage();
+
+    public void setUpAutoComplete() {
+        ArrayList<String> items = new ArrayList<>();
+        Locale[] locales = Locale.getAvailableLocales();
+        for (Locale locale : locales) {
+            String item = locale.getDisplayName();
+            items.add(item);
+        }
+        AutoComplete.setupAutoComplete(searchStudent, items);
+        searchStudent.setColumns(20);
+    }
+    private final VarCommon vars = new VarCommon();
+    private final DbModules db = new DbModules();
+    private final homePage home = new homePage();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,351 +75,396 @@ public class recordsForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        gender = new javax.swing.ButtonGroup();
-        edittudentRecords = new javax.swing.JTabbedPane();
-        RegisterStudent = new javax.swing.JPanel();
-        roomnumber = new java.awt.TextField();
-        idNumber = new java.awt.TextField();
-        textField3 = new java.awt.TextField();
-        fname = new java.awt.TextField();
-        mname = new java.awt.TextField();
-        lname = new java.awt.TextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnBiodata = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
-        btnclear = new java.awt.Button();
-        male = new javax.swing.JRadioButton();
-        female = new javax.swing.JRadioButton();
-        reLogout = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        txtIDnumber = new java.awt.TextField();
-        txtFname = new java.awt.TextField();
-        txtMname = new java.awt.TextField();
-        txtLname = new java.awt.TextField();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        textField11 = new java.awt.TextField();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        editLogout = new javax.swing.JButton();
+        newStudentgender = new ButtonGroup();
+        editStudentGender = new ButtonGroup();
+        edittudentRecords = new JTabbedPane();
+        RegisterStudent = new JPanel();
+        textField3 = new TextField();
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        btnBiodata = new JButton();
+        btnSave = new JButton();
+        male = new JRadioButton();
+        female = new JRadioButton();
+        reLogout = new JButton();
+        clear = new JButton();
+        back1 = new JButton();
+        newStudentFirstName = new JTextField();
+        newStudentIdNumber = new JTextField();
+        newStudentLastName = new JTextField();
+        newStudentMiddleName = new JTextField();
+        newStudentRoomNumber = new JTextField();
+        EditStudentDetails = new JPanel();
+        searchStudent = new JTextField();
+        male1 = new JRadioButton();
+        male2 = new JRadioButton();
+        jLabel3 = new JLabel();
+        jButton3 = new JButton();
+        jButton4 = new JButton();
+        back = new JButton();
+        editLogout = new JButton();
+        clear1 = new JButton();
+        jButton6 = new JButton();
+        EditNewStudentFirstName = new JTextField();
+        EditNewStudentMiddleName = new JTextField();
+        EditNewStudentLastName = new JTextField();
+        EditNewStudentRoomNumber = new JTextField();
+        EditNewStudentIdNumber = new JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        roomnumber.setText("Room number");
-
-        idNumber.setName("idNumber"); // NOI18N
-        idNumber.setText("ID Number ");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         textField3.setText("textField1");
-
-        fname.setName(""); // NOI18N
-        fname.setText("First Name");
-
-        mname.setText("Middle name");
-
-        lname.setText("Last Name");
-        lname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lnameActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Gender");
 
         btnBiodata.setText("Bio Data");
 
         btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnSave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 btnSaveActionPerformed(evt);
             }
         });
 
-        btnclear.setLabel("Clear");
-        btnclear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnclearActionPerformed(evt);
-            }
-        });
-
-        gender.add(male);
+        newStudentgender.add(male);
         male.setText("Male");
 
-        gender.add(female);
+        newStudentgender.add(female);
         female.setText("Female");
 
         reLogout.setText("Logout");
-        reLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        reLogout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 reLogoutActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout RegisterStudentLayout = new javax.swing.GroupLayout(RegisterStudent);
+        clear.setText("Clear");
+        clear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
+
+        back1.setText("Back");
+        back1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                back1ActionPerformed(evt);
+            }
+        });
+
+        newStudentFirstName.setColumns(10);
+
+        newStudentIdNumber.setColumns(10);
+
+        newStudentLastName.setColumns(10);
+
+        newStudentMiddleName.setColumns(10);
+
+        newStudentRoomNumber.setColumns(10);
+
+        GroupLayout RegisterStudentLayout = new GroupLayout(RegisterStudent);
         RegisterStudent.setLayout(RegisterStudentLayout);
         RegisterStudentLayout.setHorizontalGroup(
-            RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(RegisterStudentLayout.createSequentialGroup()
-                .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegisterStudentLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(idNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(269, 269, 269))
+                .addContainerGap()
+                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(RegisterStudentLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(male)
+                            .addComponent(female))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(RegisterStudentLayout.createSequentialGroup()
+                        .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(clear)
+                            .addComponent(newStudentIdNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(newStudentFirstName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBiodata)
                             .addGroup(RegisterStudentLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(roomnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBiodata)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(RegisterStudentLayout.createSequentialGroup()
-                                .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(RegisterStudentLayout.createSequentialGroup()
-                                        .addComponent(mname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(34, 34, 34)
-                                        .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(male)
-                                    .addComponent(female))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)))
-                .addGap(49, 49, 49))
+                                .addComponent(newStudentMiddleName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(newStudentLastName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(back1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(reLogout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnSave))
+                        .addContainerGap(20, Short.MAX_VALUE))))
             .addGroup(RegisterStudentLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(btnclear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(btnSave)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(reLogout)
-                .addGap(79, 79, 79))
+                .addComponent(jLabel1)
+                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(RegisterStudentLayout.createSequentialGroup()
+                        .addGap(241, 241, 241)
+                        .addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(RegisterStudentLayout.createSequentialGroup()
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newStudentRoomNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12))
         );
         RegisterStudentLayout.setVerticalGroup(
-            RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(RegisterStudentLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(idNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(fname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(male))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(female)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(newStudentIdNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back1))
+                .addGap(36, 36, 36)
+                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(newStudentFirstName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newStudentMiddleName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newStudentLastName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reLogout))
+                .addGap(16, 16, 16)
+                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(RegisterStudentLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textField3, GroupLayout.PREFERRED_SIZE, 0, GroupLayout.PREFERRED_SIZE))
                     .addGroup(RegisterStudentLayout.createSequentialGroup()
-                        .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBiodata)
-                            .addComponent(roomnumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnclear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(RegisterStudentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnSave)
-                                .addComponent(reLogout)))
-                        .addGap(0, 32, Short.MAX_VALUE))))
+                        .addComponent(male)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(female)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(newStudentRoomNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(btnBiodata)
+                .addGap(18, 18, 18)
+                .addGroup(RegisterStudentLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(clear))
+                .addContainerGap())
         );
 
         edittudentRecords.addTab("Register student", RegisterStudent);
 
-        jTextField1.setText("serch            Q");
+        searchStudent.setColumns(20);
+        searchStudent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                searchStudentActionPerformed(evt);
+            }
+        });
 
-        txtIDnumber.setText("ID Number ");
+        editStudentGender.add(male1);
+        male1.setText("Male");
+        male1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                male1ActionPerformed(evt);
+            }
+        });
 
-        txtFname.setText("First Name");
-
-        txtMname.setText("Middle name");
-
-        txtLname.setText("Last Name");
-
-        jRadioButton3.setText("jRadioButton1");
-
-        jRadioButton4.setText("jRadioButton2");
+        editStudentGender.add(male2);
+        male2.setText("Female");
 
         jLabel3.setText("Gender");
 
         jButton3.setText("Bio Data");
 
-        textField11.setText("Room number");
-
         jButton4.setText("Delete");
 
-        jButton5.setText("Save");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        back.setText("Back");
+        back.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                backActionPerformed(evt);
             }
         });
 
         editLogout.setText("Logout");
-        editLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        editLogout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 editLogoutActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(137, 137, 137)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIDnumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textField11, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 188, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addGap(33, 33, 33)
+        clear1.setText("Clear");
+        clear1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                clear1ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Save");
+        jButton6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        EditNewStudentFirstName.setColumns(10);
+
+        EditNewStudentMiddleName.setColumns(10);
+
+        EditNewStudentLastName.setColumns(10);
+
+        EditNewStudentRoomNumber.setColumns(10);
+
+        EditNewStudentIdNumber.setColumns(10);
+
+        GroupLayout EditStudentDetailsLayout = new GroupLayout(EditStudentDetails);
+        EditStudentDetails.setLayout(EditStudentDetailsLayout);
+        EditStudentDetailsLayout.setHorizontalGroup(
+            EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                        .addComponent(EditNewStudentIdNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchStudent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(editLogout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(back, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                        .addComponent(clear1)
+                        .addGap(97, 97, 97)
                         .addComponent(jButton4)
-                        .addGap(59, 59, 59)
-                        .addComponent(editLogout)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6))
+                    .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                        .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(male1)
+                                    .addComponent(male2)))
+                            .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                                .addComponent(EditNewStudentFirstName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(EditNewStudentMiddleName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(EditNewStudentLastName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                        .addComponent(EditNewStudentRoomNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(57, 57, 57)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(137, 137, 137)
-                            .addComponent(jButton3))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(txtMname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(34, 34, 34)
-                                    .addComponent(txtLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jRadioButton3)
-                                .addComponent(jRadioButton4))))
-                    .addContainerGap(121, Short.MAX_VALUE)))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        EditStudentDetailsLayout.setVerticalGroup(
+            EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(EditStudentDetailsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(txtIDnumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                .addComponent(textField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(editLogout))
-                .addGap(23, 23, 23))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(70, 70, 70)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtMname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(19, 19, 19)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchStudent, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back)
+                    .addComponent(EditNewStudentIdNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(editLogout)
+                .addGap(18, 18, 18)
+                .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditNewStudentFirstName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditNewStudentMiddleName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditNewStudentLastName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addGroup(EditStudentDetailsLayout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addComponent(jRadioButton3))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jRadioButton4)
-                    .addGap(20, 20, 20)
-                    .addComponent(jButton3)
-                    .addContainerGap(77, Short.MAX_VALUE)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton3)
+                            .addComponent(EditNewStudentRoomNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42))
+                    .addGroup(EditStudentDetailsLayout.createSequentialGroup()
+                        .addComponent(male1)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(male2)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(EditStudentDetailsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(clear1)
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+                .addContainerGap())
         );
 
-        edittudentRecords.addTab("Edit students records", jPanel2);
+        edittudentRecords.addTab("Edit students records", EditStudentDetails);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(edittudentRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(edittudentRecords)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(edittudentRecords)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void backActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here
+        this.setVisible(false);
+        home.setVisible(true);
 
+    }//GEN-LAST:event_backActionPerformed
 
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnSaveActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        vars.setFmane(fname.getText());
-        vars.setMname(mname.getText());
-        vars.setLname(lname.getText());
-        vars.setId(idNumber.getText());
-        vars.setGender(getSelectedButtonText(gender));
-        vars.setRoomNumber(roomnumber.getText());
+        vars.setFmane(newStudentFirstName.getText());
+        vars.setMname(newStudentMiddleName.getText());
+        vars.setLname(newStudentLastName.getText());
+        vars.setId(newStudentIdNumber.getText());
+        vars.setGender(getSelectedButtonText(newStudentgender));
+        vars.setRoomNumber(newStudentRoomNumber.getText());
         vars.setBioData(btnBiodata.getText());
         System.out.print("" + vars.getFmane() + "  " + vars.getLname() + "  ");
         db.addUsser(vars);
-      //admin.setVisible(true);
-
+        //admin.setVisible(true);
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
+    private void reLogoutActionPerformed(ActionEvent evt) {//GEN-FIRST:event_reLogoutActionPerformed
         // TODO add your handling code here:
-        admin.setVisible(true);
-    }//GEN-LAST:event_btnclearActionPerformed
-
-    private void lnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lnameActionPerformed
-
-    private void reLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reLogoutActionPerformed
-        // TODO add your handling code here:
-         LoginForm lg= new LoginForm();
+        LoginForm lg = new LoginForm();
         lg.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_reLogoutActionPerformed
 
-    private void editLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLogoutActionPerformed
+    private void editLogoutActionPerformed(ActionEvent evt) {//GEN-FIRST:event_editLogoutActionPerformed
         // TODO add your handling code here:
-         LoginForm lg= new LoginForm();
+        LoginForm lg = new LoginForm();
         lg.setVisible(true);
-     this.setVisible(false);
+        this.setVisible(false);
     }//GEN-LAST:event_editLogoutActionPerformed
+
+    private void male1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_male1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_male1ActionPerformed
+
+    private void clearActionPerformed(ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clearActionPerformed
+
+    private void clear1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_clear1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clear1ActionPerformed
+
+    private void jButton6ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void back1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_back1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        home.setVisible(true);
+    }//GEN-LAST:event_back1ActionPerformed
+
+    private void searchStudentActionPerformed(ActionEvent evt) {//GEN-FIRST:event_searchStudentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchStudentActionPerformed
     public String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -405,19 +492,14 @@ public class recordsForm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(recordsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(recordsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(recordsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(recordsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new recordsForm().setVisible(true);
             }
@@ -425,36 +507,40 @@ public class recordsForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel RegisterStudent;
-    private javax.swing.JButton btnBiodata;
-    private javax.swing.JButton btnSave;
-    private java.awt.Button btnclear;
-    private javax.swing.JButton editLogout;
-    private javax.swing.JTabbedPane edittudentRecords;
-    private javax.swing.JRadioButton female;
-    private java.awt.TextField fname;
-    private javax.swing.ButtonGroup gender;
-    private java.awt.TextField idNumber;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JTextField jTextField1;
-    private java.awt.TextField lname;
-    private javax.swing.JRadioButton male;
-    private java.awt.TextField mname;
-    private javax.swing.JButton reLogout;
-    private java.awt.TextField roomnumber;
-    private java.awt.TextField textField11;
-    private java.awt.TextField textField3;
-    private java.awt.TextField txtFname;
-    private java.awt.TextField txtIDnumber;
-    private java.awt.TextField txtLname;
-    private java.awt.TextField txtMname;
+    private JTextField EditNewStudentFirstName;
+    private JTextField EditNewStudentIdNumber;
+    private JTextField EditNewStudentLastName;
+    private JTextField EditNewStudentMiddleName;
+    private JTextField EditNewStudentRoomNumber;
+    private JPanel EditStudentDetails;
+    private JPanel RegisterStudent;
+    private JButton back;
+    private JButton back1;
+    private JButton btnBiodata;
+    private JButton btnSave;
+    private JButton clear;
+    private JButton clear1;
+    private JButton editLogout;
+    private ButtonGroup editStudentGender;
+    private JTabbedPane edittudentRecords;
+    private JRadioButton female;
+    private JButton jButton3;
+    private JButton jButton4;
+    private JButton jButton6;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JRadioButton male;
+    private JRadioButton male1;
+    private JRadioButton male2;
+    private JTextField newStudentFirstName;
+    private JTextField newStudentIdNumber;
+    private JTextField newStudentLastName;
+    private JTextField newStudentMiddleName;
+    private JTextField newStudentRoomNumber;
+    private ButtonGroup newStudentgender;
+    private JButton reLogout;
+    private JTextField searchStudent;
+    private TextField textField3;
     // End of variables declaration//GEN-END:variables
 }

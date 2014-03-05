@@ -81,16 +81,15 @@ public class DbModules {
     public boolean addMewAdmin(VarCommon vars) {
         boolean present = false;
 
-        String sql1 = "Insert into adminDetails(fname,lname,gender,emmailAddress,userName,password)"
-                + "   values  (\"" + vars.getAdminFame() + "\" ,\"" + vars.getAdminLname() + "\",\"" + vars.getAdminGender() + "\" ,\"" + vars.getAdminEmail() + "\",\"" + vars.getAdminUsername() + "\",\"" + vars.getAdMinPassword() + "\")";;
+        String sql1 = "Insert into adminDetails(fname,lname,gender,emmailAddress,userName,password,adminId)"
+                + "   values  (\"" + vars.getAdminFame() + "\" ,\"" + vars.getAdminLname() + "\",\"" + vars.getAdminGender() + "\" ,\"" + vars.getAdminEmail() + "\",\"" + vars.getAdminUsername() + "\",\"" + vars.MD5(vars.getAdMinPassword()) + "\",\""+vars.getAdminId()+"\")";;
         try {
             Connection conn = DbModules.getConnection();
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(sql1);
+            vars.infoBox("Success!", "success");
         } catch (SQLException e) {
-            System.out.println("Error checking availablility of component");
-            System.out.println(sql1);
-
+            vars.infoBox("Error adding new admin", "failure");
             e.printStackTrace();
         }
 
@@ -98,8 +97,8 @@ public class DbModules {
     }
 
     public VarCommon adminLogin(VarCommon user) {
-        System.out.println("db modules validateLogin= email" + user.getAdminUsername()+ " pass" + user.getAdMinPassword()+ "");
-        String usql = "SELECT  * FROM adminDetails WHERE username = \"" + user.getAdminUsername()+ "\" and  password = \"" + user.getAdMinPassword()        + "\"";
+        //System.out.println("db modules validateLogin email = " + user.getAdminUsername() + " pass = " + user.getAdMinPassword() + " md5 = "+user.MD5(user.getAdMinPassword()));
+        String usql = "SELECT  * FROM adminDetails WHERE username = \"" + user.getAdminUsername() + "\" and  password = \"" + (user.MD5(user.getAdMinPassword())) + "\"";
         try {
             Connection conn;
             conn = DbModules.getConnection();
@@ -109,11 +108,6 @@ public class DbModules {
             if (!test) {
                 System.out.println("Failure login");
             } else if (test) {
-                System.out.println("ssuucceessffuull login");
-               // user.setEmail(rs.getString("email_adress"));
-                //user.setPassword(rs.getString("password"));
-                //call the findname method from within the class and setting  the return value to name 
-               // user.setName(DbModules.findName(rs.getString("email_adress")));//
                 user.setIsValid(true);
             }
         } catch (SQLException e) {

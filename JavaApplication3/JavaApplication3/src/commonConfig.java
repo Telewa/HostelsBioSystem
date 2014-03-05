@@ -13,7 +13,7 @@ public class commonConfig {
         
     }
     private String  user = "root";
-    private String password = "w1nn1e";
+    private String password = "root";
     private String database = "studentReg"; 
     private String db_url = "jdbc:mysql://localhost:3306/studentReg";
     
